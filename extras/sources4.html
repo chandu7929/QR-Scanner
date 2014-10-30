@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Device Switching</title>
+<style>
+video {
+    border:5px solid black;
+    width:480px;
+    height:360px;
+}
+button {
+    font: 18px sans-serif;
+    padding: 8px;
+}
+</style>
+<script>
+
+var mainStream;
+var choices;
+var sourceIDs = new Array();
+</script>
+</head>
+<body>
+This demo shows device switching via the (proposed) device selection API.
+The big frame shows the currently playing stream; the grid below shows
+available devices, with a button for choosing a device.
+<p>
+<video id="vid" autoplay="true"></video>
+<br>
+<button id="btn" onclick="start()">Get Sources</button>
+<select id="sources" onchange = "sourceChanged()"></select>
+<div id="choices">
+</div>
+<script>
+function failure(e) {
+  console.log("Failure");
+  alert(e.name)
+}
+
+function start() {
+  MediaStreamTrack.getSources(gotSources);
+  
+  btn.disabled = true;
+}
+
+function gotStream(stream) {
+	console.log("Gotstream");
+  video.src = webkitURL.createObjectURL(stream);
+}
+
+function sourceChanged()
+{
+	var selectList = document.getElementById("sources");
+	
+	console.log("Trying to turn on cam: " + sourceIDs[selectList.selectedIndex]);
+	
+	//Try to set the video based on this source:
+	navigator.webkitGetUserMedia({ video: {optional: [{sourceId: sourceIDs[selectList.selectedIndex]}]}},
+        gotStream, function() {});
+}
+
+function gotSources(sourceInfos)
+{
+  var selectList = document.getElementById("sources");
+  selectList.options.length = 0;
+  for (var i=0; i < sourceInfos.length; i++)
+	  {
+	  if (sourceInfos[i].kind == 'video')
+	  selectList.options.add(new Option(sourceInfos[i].label), i);
+	  sourceIDs[i] = sourceInfos[i].id;
+	  }
+}
+
+video = document.getElementById("vid");
+
+</script>
+</body>
+</html>
+

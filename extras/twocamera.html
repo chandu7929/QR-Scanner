@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+  <style>
+  #webrtc-sourcevid, #webrtc-roomvid {
+    width: 100%;
+    height: 233px;
+  }
+
+  #user_camera, #room_camera {
+    height: 300px;
+    width: 50%;
+    float: left;
+  }
+  video {
+    border: 4px solid black;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  </style>
+</head>
+<body>
+  <div id="room_camera">
+    <video id="webrtc-roomvid" autoplay muted></video>
+  </div>
+  <div id="user_camera">
+    <video id="webrtc-sourcevid" autoplay muted></video>
+    <button type="button" onclick="startVideo();">Start local videos</button>
+    <button type="button" onclick="stopVideo();">Stop local videos</button>
+  </div>
+  <script>
+  var sourcevid = document.getElementById('webrtc-sourcevid');
+  var roomvid = document.getElementById('webrtc-roomvid');
+  var localStream, localRoomStream;
+
+  // get the local video up
+  function startVideo() {
+      navigator.webkitGetUserMedia({video: true, audio: true}, successCallback, errorCallback);
+      function successCallback(stream) {
+          localStream = stream;
+          console.log("stream", localStream);
+          try {
+            sourcevid.src = window.webkitURL.createObjectURL(localStream);
+            sourcevid.play();
+          } catch(e) {
+            console.log("Error setting video src: ", e);
+          }
+          alert("change camera");
+          navigator.webkitGetUserMedia({video: true, audio: false}, successRoomCallback, errorCallback);
+      }
+      function successRoomCallback(streamRoom) {
+          localRoomStream = streamRoom;
+          console.log("room stream", localRoomStream);
+          try {
+            roomvid.src = window.webkitURL.createObjectURL(localRoomStream);
+            roomvid.play();
+          } catch(e) {
+            console.log("Error setting video src: ", e);
+          }
+      }      function errorCallback(error) {
+          console.error('An error occurred: [CODE ' + error.code + ']');
+          return;
+      }
+      function errorCallback(e) {
+        console.error('Error accessing video device', e);
+      }
+  }
+
+  // stop local video
+  function stopVideo() {
+    sourcevid.src = "";
+    localStream.stop();
+    roomvid.srv = "";
+    localRoomStream.stop();
+  }
+
+  </script>
+</body>
+</html>

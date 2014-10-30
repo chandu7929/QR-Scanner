@@ -1,0 +1,36 @@
+<html ng-app="qrscanner">
+<head>
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1'>
+<title>QR code Scanner</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
+    <script src="src/jsqrcode/grid.js"></script>
+    <script src="src/jsqrcode/version.js"></script>
+    <script src="src/jsqrcode/detector.js"></script>
+    <script src="src/jsqrcode/formatinf.js"></script>
+    <script src="src/jsqrcode/errorlevel.js"></script>
+    <script src="src/jsqrcode/bitmat.js"></script>
+    <script src="src/jsqrcode/datablock.js"></script>
+    <script src="src/jsqrcode/bmparser.js"></script>
+    <script src="src/jsqrcode/datamask.js"></script>
+    <script src="src/jsqrcode/rsdecoder.js"></script>
+    <script src="src/jsqrcode/gf256poly.js"></script>
+    <script src="src/jsqrcode/gf256.js"></script>
+    <script src="src/jsqrcode/decoder.js"></script>
+    <script src="src/jsqrcode/qrcode.js"></script>
+    <script src="src/jsqrcode/findpat.js"></script>
+    <script src="src/jsqrcode/alignpat.js"></script>
+    <script src="src/jsqrcode/databr.js"></script>
+
+    <script src="js/qrscanner.js"></script>
+
+</head>
+  <body ng-controller="qrscannerCrtl">
+   <div class='select'>
+    <label for='videoSource'>Video source: </label><select id='videoSource'></select>
+  </div>
+    <qr-scanner width="250" height="300" ng-success="onSuccess(data)" ng-error="onError(error)" />
+  </body>
+</html>

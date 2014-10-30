@@ -1,0 +1,31 @@
+/*@media screen and (max-width:  1000px) {
+  video {
+
+    height: 100%;
+    width: 100%;
+    margin: 2em auto 0;
+    border-radius: 15px;
+  -webkit-box-shadow: 0 1px 10px #D9D9D9;
+  -moz-box-shadow: 0 1px 10px #D9D9D9;
+  -ms-box-shadow: 0 1px 10px #D9D9D9;
+  -o-box-shadow: 0 1px 10px #D9D9D9;
+  box-shadow: 0 1px 10px #D9D9D9;
+    }
+ }*/
+@media screen and (max-width:  840px) {
+video{
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;}
+  canvas{
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  }
+}
+div.select {
+    margin: 0 0 0.50em 0;
+}
+label {
+  color: white;
+}
